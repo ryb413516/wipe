@@ -1,4 +1,4 @@
-var cs = document.querySelector("#cas");
+var cas = document.querySelector("#cas");
 var context = cas.getContext("2d");
 var _w = cas.width,_h = cas.height;
 var radius = 20;//涂抹的半径
