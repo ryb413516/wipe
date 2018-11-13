@@ -189,3 +189,4 @@ window.onload = function(){
 	drawMask(context);
 	// drawPoint(context);
 };
+/* 博大大 */
