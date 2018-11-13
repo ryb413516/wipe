@@ -66,13 +66,36 @@ function getTransparencyPercent(context){
 function clearRect(context){
 	context.clearRect(0,0,_w,_h);
 }
+function drawT(context,x1,y1,x2,y2){
+	if (arguments.length === 3) {
+		// 调用的是画点功能
+		context.save();
+		context.beginPath();
+		context.arc(x1,y1,radius,0,2*Math.PI);
+		context.fillStyle = "rgb(250,0,0)";
+		context.fill();
+		context.restore();
+	}else if (arguments.length === 5){
+		console.log("传递参数的个数:" +arguments.length);
+		context.save();
+		context.lineCap = "round";
+		context.beginPath();
+		context.moveTo(x1,y1);
+		context.lineTo(x2,y2);
+		context.lineWidth=radius*2;
+		context.stroke();
+		context.restore();
+	}else{
+		return false;
+	}
+}
 //点击事件
 cas.addEventListener(clickEvtName,function(evt){
 	var event = evt || window.event;
 	// 获取手指在视口的坐标，传递参数到drawPoint
 	moveX = device ?  event.touches[0].clientX : event.clientX;
 	moveY = device ?  event.touches[0].clientY : event.clientY;
-	drawPoint(context,moveX,moveY);
+	drawT(context,moveX,moveY);
 	isMouseDown = true;
 },false);
 //移动事件
@@ -82,7 +105,7 @@ cas.addEventListener(moveEvtName,function(evt){
 		event.preventDefault();
 		x2 = device ? event.touches[0].clientX : event.clientX;
 		y2 = device ? event.touches[0].clientY : event.clientY;
-		drawLine(context,moveX,moveY,x2,y2);
+		drawT(context,moveX,moveY,x2,y2);
 		moveX = x2;
 		moveY = y2;
 	}else{
