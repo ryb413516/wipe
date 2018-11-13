@@ -111,7 +111,7 @@ cas.addEventListener(moveEvtName,function(evt){
 	}else{
 		return false;
 	}
-},false)
+},false);
 //抬起事件
 cas.addEventListener(endEvtName,function(evt){
 	isMouseDown = false;
@@ -120,70 +120,6 @@ cas.addEventListener(endEvtName,function(evt){
 		clearRect(context);
 	}
 },false);
-//手指点击
-// cas.addEventListener("touchstart",function(evt){
-// 	var event = evt || window.event;
-// 	// 获取手指在视口的坐标，传递参数到drawPoint
-// 	moveX = event.touches[0].clientX;
-// 	moveY = event.touches[0].clientY;
-// 	drawPoint(context,moveX,moveY);
-// 	isMouseDown = true;
-// },false)
-//手指移动
-// cas.addEventListener("touchmove",function(evt){
-// 	if( isMouseDown){
-// 		var event = evt || window.event;
-// 		event.preventDefault();
-// 		var x2 = event.touches[0].clientX;
-// 		var y2 = event.touches[0].clientY;
-// 		drawLine(context,moveX,moveY,x2,y2);
-// 		moveX = x2;
-// 		moveY = y2;
-// 	}else{
-// 		return false;
-// 	}
-// },false)
-//手指离开
-// cas.addEventListener("touchend",function(evt){
-// 	isMouseDown = false;
-// 	if ( getTransparencyPercent(context) > 50) {
-// 		alert("超过了50%的面积");
-// 		clearRect(context);
-// 	}
-// },false)
-
-//在canvas画布上监听自定义事件"mousedown",调用drawPoint函数
-//鼠标点击
-// cas.addEventListener("mousedown",function(evt){
-// 	var event = evt || window.event;
-// 	//获取鼠标在视口的坐标，传递参数到drawPoint
-// 	moveX = event.clientX;
-// 	moveY = event.clientY;
-// 	drawPoint(context,moveX,moveY);
-// 	isMouseDown = true;
-// },false);
-// 鼠标移动
-// cas.addEventListener("mousemove",function(evt){
-// 	if(isMouseDown === true){
-// 		var event = evt || window.event;
-// 		var x2 = event.clientX;
-// 		var y2 = event.clientY;
-// 		drawLine(context,moveX,moveY,x2,y2);
-// 		//每次的结束点变成下一次划线的开始点
-// 		moveX = x2;
-// 		moveY = y2;
-// 	}else{
-// 		return false;
-// 	}
-// },false);
-//鼠标抬起
-// cas.addEventListener("mouseup",function(evt){
-// 	isMouseDown = false;
-// 	if ( getTransparencyPercent(context) > 50) {
-// 		alert("超过了50%的面积");
-// 		clearRect(context);
-// 	}
-// },false);
 //增加监听"mousemove",调用drawPoint函数
 window.onload = function(){
 	drawMask(context);
