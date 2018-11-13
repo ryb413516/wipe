@@ -67,27 +67,27 @@ function clearRect(context){
 	context.clearRect(0,0,_w,_h);
 }
 function drawT(context,x1,y1,x2,y2){
-	if (arguments.length === 3) {
-		// 调用的是画点功能
 		context.save();
 		context.beginPath();
+	if (arguments.length === 3) {
+		// 调用的是画点功能
 		context.arc(x1,y1,radius,0,2*Math.PI);
 		context.fillStyle = "rgb(250,0,0)";
 		context.fill();
-		context.restore();
+		// context.restore();
 	}else if (arguments.length === 5){
 		console.log("传递参数的个数:" +arguments.length);
-		context.save();
+		// context.save();
 		context.lineCap = "round";
-		context.beginPath();
+		// context.beginPath();
 		context.moveTo(x1,y1);
 		context.lineTo(x2,y2);
 		context.lineWidth=radius*2;
 		context.stroke();
-		context.restore();
 	}else{
 		return false;
 	}
+		context.restore();
 }
 //点击事件
 cas.addEventListener(clickEvtName,function(evt){
