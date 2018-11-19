@@ -6,39 +6,21 @@ module.exports = function(grunt){
 		//获取package.json
 		pkg:grunt.file.readJSON('package.json'),
 		//gulify插件的配置信息
-		//pkg.name 版本名称
-		//pkg.version 最新版本
-		//grunt.template.today("yyyy-mm-dd") 日期
 		uglify:{
 			options:{
-				banner:'/*!<%= pkg.name %><%= pkg.version %> 发布日期:<%= grunt.template.today("yyyy-mm-dd") %>*/',
+				banner:'/*!<%= pkg.name %><%= pkg.version %> 发布日期:<%=grunt.template.today("yyyy-mm-dd")%>*/',
 			},
-			build:{
+			dist:{
 				src:"src/js/wipe.js",
 				dest:"dist/js/wipe-<%= pkg.version %>.min.js"
 			},
-			// build2:{
-			// 	src:"src/js/style.js",
-			// 	dest:"build/style-<%= pkg.version %>.min.js"
+			// dist2:{
+			// 	src:"src/js/addclass.js",
+			// 	dest:"dist/addclass-<%= pkg.version %>.min.js"
 			// }
 		},
-		cssmin:{
-			options:{
-				mergeIntoShorthands:false,
-				roundingPrecision:-1
-			},
-			target:{
-				files:[{
-					expand:true,
-					cwd:'src/css',
-					src:['*.css'],
-					dest:'build/css',
-					ext:'.min.css'
-				}]
-			}
-		},
 		clean:{
-			dest:['dist/*','sample/js/*']
+			dest:['dist/*']
 		},
 		jshint:{
 			test:['src/js/wipe.js'],
@@ -47,29 +29,27 @@ module.exports = function(grunt){
 			}
 		},
 		copy:{
-			js:{expand:true,cwd:'dist/js',src:'*.min.js',dest:'sample/js/'}
+			js:{expand:true, cwd:'dist/js',src:'*.js',dest:'sample/js/'}
 		},
 		replace:{
 			example:{
 				src:['sample/index.html'],
 				overwrite:true,
-				replacements:[{
-					from:/wipe-\d[\.]\d[\.]\d\.min/g,
-					to:'wipe-<%= pkg.version %>.min'
-				},{
-					from:/hello\.css/g,
-					to:'hello.min.css'
-				}]
+				replacements:[
+				{
+					from:/\d[\.]\d[\.]\d/g,
+					to:'<%= pkg.version %>'
+				},
+				]
 			}
 		}
 	});
-	// 告诉grunt需要使用插件
+	//告诉grunt需要使用插件
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-text-replace');
-	//告诉grunt当我们输入grunt命令后需要做些什么,有先后顺序
+	//告诉grunt当我们输入grunt命令后需要做些什么，有先后顺序
 	grunt.registerTask('default',['jshint','clean','uglify','copy','replace']);
 };
