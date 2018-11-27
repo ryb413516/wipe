@@ -18,10 +18,17 @@ function Wipe(obj){
 	this._h = obj.height || this.cas.height;
 	this.radius = obj.radius || 20;
 	this.transpercent = obj.percent || 50;
-	this.backImg();
 	this.callback = obj.callback;
 	this.drawMask();
 	this.addEvent();
+	this.castest = obj.castest;
+	if (this.castest) {
+		this.test();
+	}
+	if (this.backImgUrl) {
+		this.backImg();
+		// this.test();
+	}
 }
 //drawT()画点和画线的函数
 //参数:如果只有两个参数,函数功能画圆,x1,y1即圆的中心坐标
@@ -125,15 +132,24 @@ Wipe.prototype.addEvent = function(){
 		// 还原isMouseDown为false
 		that.isMouseDown = false;
 		// 借用外部的处理函数
-		var percent = that.getTransparencyPercent();
-		// 调用同名的全剧函数
-		that.callback.call(null,percent,that.transpercent);
-		// 当透明面积超过用户指定的透明面积
-		if ( percent > that.transpercent) {
-			that.clearRect();
-		}
+		setTimeout(function(){
+			var percent = that.getTransparencyPercent();
+			// 调用同名的全剧函数
+			that.callback.call(null,percent,that.transpercent);
+			// 当透明面积超过用户指定的透明面积
+			if ( percent > that.transpercent) {
+				that.clearRect();
+			}
+		},500);
 	},false);
 };
 Wipe.prototype.backImg = function(){
 	 this.cas.style.cssText="background:url("+this.backImgUrl+") center 0 no-repeat; background-size: cover;";
+};
+Wipe.prototype.test = function(){
+		this.context.save();
+		this.context.font = " 100px 黑体";
+		this.context.textAlign = "center";
+		this.context.fillText(this.castest,200,400);
+		this.context.restore();
 };
