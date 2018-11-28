@@ -19,6 +19,7 @@ function Wipe(obj){
 	this.radius = obj.radius || 20;
 	this.transpercent = obj.percent || 50;
 	this.callback = obj.callback;
+	this.yanchi = true;
 	this.drawMask();
 	this.addEvent();
 	this.castest = obj.castest;
@@ -132,7 +133,19 @@ Wipe.prototype.addEvent = function(){
 		// 还原isMouseDown为false
 		that.isMouseDown = false;
 		// 借用外部的处理函数
-		setTimeout(function(){
+		console.log(that.yanchi);
+		if (that.yanchi == true) {
+			setTimeout(function(){
+				var percent = that.getTransparencyPercent();
+				// 调用同名的全剧函数
+				that.callback.call(null,percent,that.transpercent);
+				// 当透明面积超过用户指定的透明面积
+				if ( percent > that.transpercent) {
+					that.clearRect();
+				}
+			},500);
+			that.yanchi = false;
+		}else{
 			var percent = that.getTransparencyPercent();
 			// 调用同名的全剧函数
 			that.callback.call(null,percent,that.transpercent);
@@ -140,7 +153,10 @@ Wipe.prototype.addEvent = function(){
 			if ( percent > that.transpercent) {
 				that.clearRect();
 			}
-		},500);
+			setTimeout(function(){
+				that.yanchi = true;
+			},2000);
+		}
 	},false);
 };
 Wipe.prototype.backImg = function(){
