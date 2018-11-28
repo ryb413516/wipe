@@ -150,6 +150,6 @@ Wipe.prototype.test = function(){
 		this.context.save();
 		this.context.font = " 100px 黑体";
 		this.context.textAlign = "center";
-		this.context.fillText(this.castest,200,400);
+		this.context.fillText(this.castest,200,200);
 		this.context.restore();
 };
